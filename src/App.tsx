@@ -5,19 +5,12 @@ import { Main } from './pages/main/main'
 import { Login } from './pages/login'
 import {Navbar} from "./components/navbar"
 import { CreatePost } from './pages/create-post/create-post';
+import AppRouter from './components/AppRouter';
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path= "/" element ={<Main />} />
-          <Route path= "/login" element ={<Login />} />
-          <Route path= "/createpost" element ={<CreatePost />} />
-
-        </Routes>
-      </Router>
+      <AppRouter />
     </div>
   );
 }
