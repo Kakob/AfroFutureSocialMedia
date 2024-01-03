@@ -45,6 +45,7 @@
 
 button {
   cursor: pointer;
+  color: #fff;
 }
 
 .post {
@@ -57,3 +58,14 @@ button {
  
 }
 
+li {
+  display: inline;
+}
+
+p {
+  color: #fff;
+}
+
+* {
+  background-color: #000;
+}
