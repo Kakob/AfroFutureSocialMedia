@@ -1,8 +1,12 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, RefObject, useState } from "react";
 import { auth, db } from "../config/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
-const SendMessage = () => {
+
+interface ScrollProps {
+    scroll: RefObject<HTMLSpanElement>;
+  }
+const SendMessage: React.FC<ScrollProps> = ({scroll}) => {
     const [message, setMessage] = useState("");
 
     const sendMessage = async (event:FormEvent<HTMLFormElement>) => {
@@ -20,8 +24,12 @@ const SendMessage = () => {
           uid: user?.uid,
         });
         setMessage("");
+        if (scroll.current){
+            scroll.current.scrollIntoView({behavior: "smooth"});
+
+        };
       };
-      
+
     return (
     <form onSubmit={(event) => sendMessage(event)} className="send-message">
       <label htmlFor="messageInput" hidden>

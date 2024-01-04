@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import Message from "./Message";
 import SendMessage from "./SendMessage";
 import {
@@ -24,26 +24,39 @@ export interface IMessage {
 
 const ChatBox = () => {
     const [messages, setMessages] = useState<IMessage[] | null>(null);
-    const scroll = useRef();
-
+    const scroll = useRef<HTMLSpanElement>(null);
     const messagesRef = collection(db, 'messages');
       
     useEffect(() => {
         const getMessages = async () =>{
             const data = await getDocs(messagesRef);
-            setMessages(data.docs.map((doc) => ({...doc.data()})) as IMessage[]);
+            const fetchedMessages: IMessage[] = data.docs.map((doc) => ({...doc.data()})) as IMessage[];
+            const sortedMessages = fetchedMessages.sort(
+                (a, b) => {
+                    if (a > b) {
+                    return 1;
+                }
+                    if (a < b) {
+                    return -1;
+                }
+            
+                return 0;
+            }).reverse();
+            setMessages(sortedMessages);
+
         };
 
         getMessages();
 
-    }, []);
+    }, [messages]);
     
     return (
         <main className="chat-box">
         <div className="messages-wrapper">
         {messages?.map((message) => <Message message={message} /> )}        
         </div>
-        <SendMessage />
+        <span ref={scroll}></span>
+        <SendMessage scroll={scroll}/>
         </main>
     );
 };
