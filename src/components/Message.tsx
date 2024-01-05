@@ -1,12 +1,11 @@
 import React from "react";
 import { auth } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Timestamp } from "firebase/firestore";
 import { IMessage } from "./ChatBox";
 
 
 interface Props {
-   message: IMessage;
+    message: IMessage ;
 }
 const Message = (props: Props) => {
     const { message } = props;

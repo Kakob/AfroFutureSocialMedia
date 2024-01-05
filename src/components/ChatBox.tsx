@@ -18,6 +18,7 @@ export interface IMessage {
     name: string;
     text: string; 
     uid: string;
+    id: string;
 }
 
 
@@ -28,27 +29,23 @@ const ChatBox = () => {
     const messagesRef = collection(db, 'messages');
       
     useEffect(() => {
-        const getMessages = async () =>{
-            const data = await getDocs(messagesRef);
-            const fetchedMessages: IMessage[] = data.docs.map((doc) => ({...doc.data()})) as IMessage[];
-            const sortedMessages = fetchedMessages.sort(
-                (a, b) => {
-                    if (a > b) {
-                    return 1;
-                }
-                    if (a < b) {
-                    return -1;
-                }
-            
-                return 0;
-            }).reverse();
-            setMessages(sortedMessages);
-
-        };
-
-        getMessages();
-
-    }, [messages]);
+        const q = query(messagesRef, orderBy("createdAt"));
+    
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const updatedMessages: IMessage[] = Array.from(snapshot.docs).map((doc) => ({
+                ...(doc.data() as IMessage),
+                id: doc.id,
+              }));
+          setMessages(updatedMessages);
+          // Scroll to the bottom when new messages arrive
+          if (scroll.current) {
+            scroll.current.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+    
+        // Cleanup function to unsubscribe from the snapshot listener when the component unmounts
+        return () => unsubscribe();
+      }, []); // Empty dependency array to run the effect once when the component mounts
     
     return (
         <main className="chat-box">
