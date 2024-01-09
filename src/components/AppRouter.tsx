@@ -4,8 +4,8 @@ import { Login } from '../pages/login'
 import {Navbar} from "../components/navbar"
 import { CreatePost } from '../pages/create-post/create-post';
 import { ChatPage } from '../pages/chat/chat-page';
+import { ChatList } from '../components/ChatList'
 import { SettingsPage } from '../pages/chat/settings';
-
 
 export const AppRouter: React.FunctionComponent = () => {
     return (
@@ -15,8 +15,8 @@ export const AppRouter: React.FunctionComponent = () => {
                 <Route path= "/" element ={<Main />} />
                 <Route path= "/login" element ={<Login />} />
                 <Route path= "/createpost" element ={<CreatePost />} />
-                <Route path= "/chat" element ={<ChatPage />} />
-                <Route path= "/settings" element ={<SettingsPage />} />
+                <Route path="/chats" element={ <ChatList />} />
+                <Route path="/settings" element={ <SettingsPage />} />
             </Routes>
       </Router>
     );

@@ -78,6 +78,8 @@ input {
 .messages-wrapper {
   padding: 30px;
   margin-bottom: 60px;
+  max-height: 500px;
+  overflow-y: auto;
 }
 .chat-bubble {
   border-radius: 20px 20px 20px 0;
@@ -152,4 +154,13 @@ input {
   border: 1px solid #7cc5d9;
   background-color: #7cc5d9;
   font-weight: 600;
+}
+
+.chatContainer {
+  display: flex;
+}
+
+.chatChild {
+  flex: 1;
+
 }

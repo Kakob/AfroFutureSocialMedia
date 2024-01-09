@@ -1,5 +1,6 @@
 import * as React from 'react';
-import ChatBox from '../../components/ChatBox';
+import ChatRoom from '../../components/ChatRoom';
+import { ChatList } from '../../components/ChatList';
 // import ChatArea from '../../ChatArea';
 // import MessageSender from '../../MessageSender';
 
@@ -8,7 +9,8 @@ export const ChatPage = () => {
    return(
    <div>
       <p>Chat</p>
-    <ChatBox />
+      {/* <ChatList /> */}
+      <ChatRoom />
    </div>
    )
    

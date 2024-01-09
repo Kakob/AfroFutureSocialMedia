@@ -1,7 +1,7 @@
 import React from "react";
 import { auth } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { IMessage } from "./ChatBox";
+import { IMessage } from "./ChatRoom";
 
 
 interface Props {
